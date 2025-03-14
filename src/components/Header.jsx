@@ -1,4 +1,3 @@
-// Header.jsx
 import React, { useState } from 'react';
 import { AppBar, Toolbar, Box, useTheme } from '@mui/material';
 import HeaderTitle from './HeaderTitle';
@@ -6,6 +5,8 @@ import DesktopActions from './DesktopActions';
 import MobileActions from './MobileActions';
 import LeaderboardDialog from './LeaderboardDialog';
 import ChallengesDialog from './ChallengesDialog';
+import BackgroundMusicDialog from './BackgroundMusicDialog';
+import BackgroundImageDialog from './BackgroundImageDialog'; // New import
 
 function Header({ 
   user, 
@@ -18,15 +19,31 @@ function Header({
   difficulty, 
   startGame, 
   setDifficulty,
+  audioFile,
+  setAudioFile,
+  isPlaying,
+  setIsPlaying,
+  volume,
+  setVolume,
+  loopMusic,
+  setLoopMusic,
+  gameBackgroundImage, 
+  setGameBackgroundImage 
 }) {
   const theme = useTheme();
   const [openLeaderboard, setOpenLeaderboard] = useState(false);
   const [openChallenges, setOpenChallenges] = useState(false);
+  const [openMusic, setOpenMusic] = useState(false);
+  const [openBackgroundImage, setOpenBackgroundImage] = useState(false); // New state
 
   const handleOpenLeaderboard = () => setOpenLeaderboard(true);
   const handleCloseLeaderboard = () => setOpenLeaderboard(false);
   const handleOpenChallenges = () => setOpenChallenges(true);
   const handleCloseChallenges = () => setOpenChallenges(false);
+  const handleOpenMusic = () => setOpenMusic(true);
+  const handleCloseMusic = () => setOpenMusic(false);
+  const handleOpenBackgroundImage = () => setOpenBackgroundImage(true); // New handler
+  const handleCloseBackgroundImage = () => setOpenBackgroundImage(false); // New handler
 
   return (
     <AppBar 
@@ -58,6 +75,8 @@ function Header({
             isDarkMode={isDarkMode}
             onOpenLeaderboard={handleOpenLeaderboard}
             onOpenChallenges={handleOpenChallenges}
+            onOpenMusic={handleOpenMusic}
+            onOpenBackgroundImage={handleOpenBackgroundImage} // Pass new handler
           />
         </Box>
         
@@ -70,6 +89,8 @@ function Header({
             isDarkMode={isDarkMode}
             onOpenLeaderboard={handleOpenLeaderboard}
             onOpenChallenges={handleOpenChallenges}
+            onOpenMusic={handleOpenMusic}
+            onOpenBackgroundImage={handleOpenBackgroundImage} // Pass new handler
           />
         </Box>
       </Toolbar>
@@ -87,6 +108,24 @@ function Header({
         startGame={startGame} 
         setDifficulty={setDifficulty} 
         user={user} 
+      />
+      <BackgroundMusicDialog 
+        open={openMusic} 
+        onClose={handleCloseMusic}
+        audioFile={audioFile}
+        setAudioFile={setAudioFile}
+        isPlaying={isPlaying}
+        setIsPlaying={setIsPlaying}
+        volume={volume}
+        setVolume={setVolume}
+        loopMusic={loopMusic}
+        setLoopMusic={setLoopMusic}
+      />
+      <BackgroundImageDialog 
+        open={openBackgroundImage}
+        onClose={handleCloseBackgroundImage}
+        gameBackgroundImage={gameBackgroundImage}
+        setGameBackgroundImage={setGameBackgroundImage}
       />
     </AppBar>
   );

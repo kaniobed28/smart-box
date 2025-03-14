@@ -17,7 +17,9 @@ function MobileActions({
   toggleTheme, 
   isDarkMode, 
   onOpenLeaderboard, 
-  onOpenChallenges 
+  onOpenChallenges,
+  onOpenMusic,
+  onOpenBackgroundImage, // New prop
 }) {
   const [mobileMenuAnchorEl, setMobileMenuAnchorEl] = useState(null);
 
@@ -48,6 +50,8 @@ function MobileActions({
       >
         <MenuItem onClick={onOpenLeaderboard}>Leaderboard</MenuItem>
         <MenuItem onClick={onOpenChallenges}>Challenges</MenuItem>
+        <MenuItem onClick={onOpenMusic}>Background Music</MenuItem>
+        {/* <MenuItem onClick={onOpenBackgroundImage}>Game Background</MenuItem> New item */}
         <MenuItem onClick={showGameInfo}>Game Info</MenuItem>
         <MenuItem>
           <Switch

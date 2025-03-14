@@ -15,6 +15,8 @@ import Brightness4Icon from '@mui/icons-material/Brightness4';
 import Brightness7Icon from '@mui/icons-material/Brightness7';
 import LeaderboardIcon from '@mui/icons-material/Leaderboard';
 import ChallengeIcon from '@mui/icons-material/EmojiEvents';
+import MusicNoteIcon from '@mui/icons-material/MusicNote';
+import ImageIcon from '@mui/icons-material/Image'; // New icon for background image
 
 function DesktopActions({ 
   user, 
@@ -23,7 +25,9 @@ function DesktopActions({
   toggleTheme, 
   isDarkMode, 
   onOpenLeaderboard, 
-  onOpenChallenges 
+  onOpenChallenges,
+  onOpenMusic,
+  onOpenBackgroundImage, // New prop
 }) {
   const [anchorEl, setAnchorEl] = useState(null);
 
@@ -47,6 +51,16 @@ function DesktopActions({
               <ChallengeIcon />
             </IconButton>
           </Tooltip>
+          <Tooltip title="Background Music">
+            <IconButton color="inherit" onClick={onOpenMusic} aria-label="select background music">
+              <MusicNoteIcon />
+            </IconButton>
+          </Tooltip>
+          {/* <Tooltip title="Game Background">
+            <IconButton color="inherit" onClick={onOpenBackgroundImage} aria-label="select game background">
+              <ImageIcon />
+            </IconButton>
+          </Tooltip> */}
           <Tooltip title="Game Info">
             <IconButton color="inherit" onClick={showGameInfo} aria-label="game information">
               <InfoIcon />
