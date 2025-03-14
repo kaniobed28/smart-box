@@ -1,13 +1,25 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 
 function Box({ position, moveBox, difficulty }) {
   const [clicked, setClicked] = useState(false);
-  const boxSize = difficulty === 'easy' ? 64 : difficulty === 'medium' ? 48 : 32;
+
+  // Define box size and animation speed based on difficulty
+  const boxSize = {
+    easy: 64,
+    medium: 48,
+    hard: 32,
+  };
+
+  const animationDuration = {
+    easy: 1000, // milliseconds
+    medium: 750,
+    hard: 500,
+  };
 
   const handleClick = () => {
     setClicked(true);
-    moveBox(true);
-    setTimeout(() => setClicked(false), 100);
+    moveBox(true); // Notify parent that the box was clicked
+    setTimeout(() => setClicked(false), animationDuration[difficulty]);
   };
 
   return (
@@ -16,8 +28,13 @@ function Box({ position, moveBox, difficulty }) {
       style={{
         top: `${position.top}px`,
         left: `${position.left}px`,
-        width: `${boxSize}px`,
-        height: `${boxSize}px`,
+        width: `${boxSize[difficulty]}px`,
+        height: `${boxSize[difficulty]}px`,
+        position: 'absolute',
+        backgroundColor: '#007bff',
+        borderRadius: '8px',
+        cursor: 'pointer',
+        transition: `transform ${animationDuration[difficulty]}ms ease`,
       }}
       onClick={handleClick}
     />

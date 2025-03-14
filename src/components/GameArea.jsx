@@ -24,6 +24,7 @@ function GameArea({
 }) {
   return (
     <Grid container spacing={2} sx={{ height: '100%', alignContent: 'flex-start' }}>
+      {/* Main Game Area */}
       <Grid item xs={12} md={gameActive ? 12 : 8}>
         <Paper 
           elevation={3} 
@@ -37,13 +38,18 @@ function GameArea({
             overflow: 'hidden',
           }}
         >
+          {/* Game Controls */}
           <GameControls
             difficulty={difficulty}
             setDifficulty={setDifficulty}
             startGame={startGame}
             gameActive={gameActive}
           />
+
+          {/* Stats */}
           <Stats timeLeft={timeLeft} score={score} highScore={highScore} />
+
+          {/* Play Area */}
           <div
             ref={playAreaRef}
             style={{
@@ -65,12 +71,17 @@ function GameArea({
           </div>
         </Paper>
       </Grid>
+
+      {/* Sidebar (Leaderboard and Challenges) */}
       {!gameActive && (
         <Grid item xs={12} md={4}>
           <Grid container spacing={2}>
+            {/* Leaderboard */}
             <Grid item xs={12}>
               <Leaderboard topScores={topScores} />
             </Grid>
+
+            {/* Challenges */}
             <Grid item xs={12}>
               <Challenges 
                 currentScore={currentScore} 

@@ -77,13 +77,28 @@ function App() {
   }, [gameActive, timeLeft]);
 
   useEffect(() => {
-    const q = query(collection(db, 'scores'), orderBy('score', 'desc'), limit(10));
+    const q = query(collection(db, 'scores'), orderBy('score', 'desc'), limit(100)); // Increase limit temporarily to get more data
     const unsubscribe = onSnapshot(q, (snapshot) => {
       const scoresData = snapshot.docs.map((doc) => ({
         id: doc.id,
         ...doc.data(),
       }));
-      setTopScores(scoresData);
+  
+      // Process scores to keep only the highest score per user
+      const highestScoresMap = new Map();
+      scoresData.forEach((entry) => {
+        const existing = highestScoresMap.get(entry.userName);
+        if (!existing || entry.score > existing.score) {
+          highestScoresMap.set(entry.userName, entry);
+        }
+      });
+  
+      // Convert Map values to array and take top 10
+      const filteredTopScores = Array.from(highestScoresMap.values())
+        .sort((a, b) => b.score - a.score) // Sort by score descending
+        .slice(0, 10); // Limit to top 10
+  
+      setTopScores(filteredTopScores);
     });
     return () => unsubscribe();
   }, []);
