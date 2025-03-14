@@ -1,3 +1,4 @@
+// Header.jsx
 import React, { useState } from 'react';
 import { AppBar, Toolbar, Box, useTheme } from '@mui/material';
 import HeaderTitle from './HeaderTitle';
@@ -28,28 +29,51 @@ function Header({
   const handleCloseChallenges = () => setOpenChallenges(false);
 
   return (
-    <AppBar position="static">
-      <Toolbar sx={{ justifyContent: 'space-between' }}>
+    <AppBar 
+      position="static"
+      sx={{
+        background: `linear-gradient(135deg, ${theme.palette.primary.dark}, ${theme.palette.secondary.main})`,
+        boxShadow: '0 4px 12px rgba(0,0,0,0.3)',
+        borderBottom: `2px solid ${theme.palette.divider}`,
+        mb: 4
+      }}
+    >
+      <Toolbar 
+        sx={{
+          justifyContent: 'space-between',
+          alignItems: 'center',
+          gap: 2,
+          py: 2,
+          flexWrap: 'wrap'
+        }}
+      >
         <HeaderTitle />
-        <DesktopActions 
-          user={user}
-          loginWithGoogle={loginWithGoogle}
-          logout={logout}
-          toggleTheme={toggleTheme}
-          isDarkMode={isDarkMode}
-          onOpenLeaderboard={handleOpenLeaderboard}
-          onOpenChallenges={handleOpenChallenges}
-        />
-        <MobileActions 
-          user={user}
-          loginWithGoogle={loginWithGoogle}
-          logout={logout}
-          toggleTheme={toggleTheme}
-          isDarkMode={isDarkMode}
-          onOpenLeaderboard={handleOpenLeaderboard}
-          onOpenChallenges={handleOpenChallenges}
-        />
+        
+        <Box sx={{ display: { xs: 'none', md: 'flex' }, flexGrow: 1 }}>
+          <DesktopActions 
+            user={user}
+            loginWithGoogle={loginWithGoogle}
+            logout={logout}
+            toggleTheme={toggleTheme}
+            isDarkMode={isDarkMode}
+            onOpenLeaderboard={handleOpenLeaderboard}
+            onOpenChallenges={handleOpenChallenges}
+          />
+        </Box>
+        
+        <Box sx={{ display: { xs: 'flex', md: 'none' }, flexGrow: 1 }}>
+          <MobileActions 
+            user={user}
+            loginWithGoogle={loginWithGoogle}
+            logout={logout}
+            toggleTheme={toggleTheme}
+            isDarkMode={isDarkMode}
+            onOpenLeaderboard={handleOpenLeaderboard}
+            onOpenChallenges={handleOpenChallenges}
+          />
+        </Box>
       </Toolbar>
+      
       <LeaderboardDialog 
         open={openLeaderboard} 
         onClose={handleCloseLeaderboard} 
